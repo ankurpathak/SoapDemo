@@ -9,10 +9,15 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
 import javax.imageio.ImageIO;
 import javax.jws.WebService;
 import javax.xml.ws.WebServiceException;
 import javax.xml.ws.soap.MTOM;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 /**
  *
@@ -45,6 +50,48 @@ public class ImageServerImpl implements ImageServer {
                 throw new WebServiceException();
             }
 
+        }
+    }
+
+    @Override
+    public byte[] downloadByteArray() {
+        try{
+            File file = PATH_DOWNLOAD.toFile();
+            return FileUtils.readFileToByteArray(file);
+        }catch (IOException e) {
+            throw new WebServiceException();
+        }
+    }
+
+    @Override
+    public void uploadByteArray(byte[] data) {
+        if (!ArrayUtils.isEmpty(data)) {
+            File file = PATH_UPLOAD.toFile();
+            try {
+                FileUtils.writeByteArrayToFile(file, data);
+            } catch (IOException ex) {
+                throw new WebServiceException();
+            }
+        }
+    }
+
+    @Override
+    public DataHandler downloadDataHandler() {
+        File file = PATH_DOWNLOAD.toFile();
+        FileDataSource dataSource = new FileDataSource(file);
+        DataHandler dataHandler = new DataHandler(dataSource);
+        return dataHandler;
+    }
+
+    @Override
+    public void uploadDataHandler(DataHandler data) {
+         if (data != null) {
+            File file = PATH_UPLOAD.toFile();
+            try {
+                FileUtils.copyInputStreamToFile(data.getInputStream(), file);
+            } catch (IOException ex) {
+                throw new WebServiceException();
+            }
         }
     }
 

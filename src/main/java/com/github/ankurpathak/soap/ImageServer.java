@@ -8,6 +8,7 @@ package com.github.ankurpathak.soap;
 import java.awt.Image;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import javax.activation.DataHandler;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
@@ -32,5 +33,22 @@ public interface ImageServer {
     //update image to server
     @WebMethod
     void uploadImage(Image data);
+    
+    
+    @WebMethod
+    byte[] downloadByteArray();
+    
+    
+    @WebMethod
+    void uploadByteArray(byte[] data);
+    
+    
+    @WebMethod
+    DataHandler downloadDataHandler();
+    
+    
+    @WebMethod
+    void uploadDataHandler(DataHandler dataHandler);
+    
 
 }
