@@ -22,9 +22,9 @@ import javax.jws.soap.SOAPBinding.Style;
 @SOAPBinding(style = Style.RPC)
 public interface ImageServer {
 
-    Path PATH_UPLOAD = Paths.get("/","home", "ankur", "soap", "kotak.png");
+    Path PATH_UPLOAD = Paths.get("/","home", "ankur", "soap", "kotak.jpg");
 
-    Path PATH_DOWNLOAD = Paths.get("/", "home", "ankur", "Pictures", "kotak.png");
+    Path PATH_DOWNLOAD = Paths.get("/", "home", "ankur", "Pictures", "kotak.jpg");
 
     //download a image from server
     @WebMethod

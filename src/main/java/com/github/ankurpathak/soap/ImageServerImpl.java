@@ -44,7 +44,7 @@ public class ImageServerImpl implements ImageServer {
             File file = PATH_UPLOAD.toFile();
             try {
                 if (data instanceof BufferedImage) {
-                    ImageIO.write((BufferedImage) data, "png", file);
+                    ImageIO.write((BufferedImage) data, "jpg", file);
                 }
             } catch (IOException ex) {
                 throw new WebServiceException();
